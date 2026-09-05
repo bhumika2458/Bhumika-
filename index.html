@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Surprise 🎂</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:'DM Sans',sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 20%,rgba(120,40,160,.18),transparent 25%),
+        radial-gradient(circle at 85% 70%,rgba(40,90,180,.16),transparent 28%),
+        linear-gradient(135deg,#100716,#080d1b);
+
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   STAR BACKGROUND
+===================================================== */
+
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    opacity:.5;
+    animation:twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:.15;
+        transform:scale(.6);
+    }
+
+    to{
+        opacity:.9;
+        transform:scale(1.5);
+    }
+}
+
+
+/* =====================================================
+   MAIN APP
+===================================================== */
+
+.app{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    max-width:700px;
+
+    min-height:100vh;
+
+    margin:auto;
+
+    padding:25px 20px 90px;
+}
+
+
+/* =====================================================
+   SCREENS
+===================================================== */
+
+.screen{
+    display:none;
+    animation:screenIn .55s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes screenIn{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back{
+    width:60px;
+    height:60px;
+
+    border:none;
+    border-radius:50%;
+
+    background:white;
+
+    color:#7c5368;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    margin-bottom:45px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+
+/* =====================================================
+   HEADINGS
+===================================================== */
+
+h1,
+h2{
+    font-family:'Playfair Display',serif;
+}
+
+.main-title{
+    color:#20152d;
+
+    text-align:center;
+
+    font-size:clamp(32px,7vw,46px);
+
+    line-height:1.15;
+
+    margin-bottom:25px;
+}
+
+
+/* =====================================================
+   WHITE CARD
+===================================================== */
+
+.card{
+    background:#fff;
+
+    border-radius:42px;
+
+    padding:35px 28px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.22);
+
+    margin-bottom:25px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.question{
+    text-align:center;
+
+    font-family:'Playfair Display',serif;
+
+    color:#21162e;
+
+    font-size:24px;
+
+    margin-bottom:22px;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    border:1.5px solid #ead7dc;
+
+    border-radius:25px;
+
+    padding:19px;
+
+    font-family:inherit;
+
+    font-size:18px;
+
+    color:#604d58;
+
+    background:white;
+
+    outline:none;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#ce568d;
+
+    box-shadow:
+        0 0 0 4px rgba(207,85,144,.08);
+}
+
+.date-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.next-btn{
+
+    width:85%;
+
+    display:block;
+
+    margin:25px auto;
+
+    padding:19px;
+
+    border:none;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ce478b,
+            #e678a5
+        );
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 12px 30px rgba(210,70,140,.3);
+
+    transition:.25s;
+}
+
+.next-btn:hover{
+    transform:translateY(-3px);
+}
+
+.next-btn:active{
+    transform:scale(.97);
+}
+
+
+/* =====================================================
+   CUSTOMIZE SCREEN
+===================================================== */
+
+.custom-row{
+
+    display:grid;
+
+    grid-template-columns:75px 1fr 95px;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:24px 0;
+
+    border-bottom:1px solid #eeeeee;
+}
+
+.custom-row:last-child{
+    border-bottom:none;
+}
+
+.custom-name{
+
+    font-weight:700;
+
+    font-size:18px;
+
+    color:#664558;
+}
+
+.custom-value{
+
+    color:#927f88;
+
+    font-size:16px;
+
+}
+
+.change{
+
+    border:none;
+
+    background:#f7e8ef;
+
+    color:#b74e7d;
+
+    border-radius:25px;
+
+    padding:14px 10px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   CANDLE SCREEN
+===================================================== */
+
+.cake-screen{
+
+    min-height:75vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+.cake-title{
+
+    color:white;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:clamp(30px,7vw,40px);
+
+    margin-bottom:12px;
+}
+
+.cake-title span{
+    color:#ff9ec2;
+}
+
+.cake-subtitle{
+
+    color:#c9becb;
+
+    font-size:17px;
+
+    margin-bottom:45px;
+}
+
+
+/* Cake clickable area */
+
+.cake-container{
+
+    position:relative;
+
+    width:300px;
+
+    height:260px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    -webkit-tap-highlight-color:transparent;
+
+    transition:.2s;
+}
+
+.cake-container:active{
+    transform:scale(.96);
+}
+
+
+/* =====================================================
+   CAKE
+===================================================== */
+
+.cake{
+
+    position:absolute;
+
+    width:260px;
+
+    height:170px;
+
+    left:50%;
+
+    bottom:10px;
+
+    transform:translateX(-50%);
+}
+
+
+/* Bottom cake */
+
+.cake-body{
+
+    position:absolute;
+
+    left:10px;
+
+    bottom:0;
+
+    width:240px;
+
+    height:105px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d95c82,
+            #f18aaa,
+            #d95c82
+        );
+
+    border-radius:
+        0 0 28px 28px;
+
+    box-shadow:
+        0 12px 15px rgba(0,0,0,.25);
+}
+
+
+/* Top cake */
+
+.cake-top{
+
+    position:absolute;
+
+    left:10px;
+
+    top:45px;
+
+    width:240px;
+
+    height:65px;
+
+    background:
+        linear-gradient(
+            #ffc1d2,
+            #ef7f9f
+        );
+
+    border-radius:50%;
+
+    z-index:3;
+}
+
+
+/* Cream */
+
+.cream{
+
+    position:absolute;
+
+    left:25px;
+
+    top:48px;
+
+    width:210px;
+
+    height:30px;
+
+    background:#fff4f7;
+
+    border-radius:50%;
+
+    z-index:4;
+}
+
+
+/* Cake decoration */
+
+.cake-body::before{
+
+    content:"🍓  •  🍓  •  🍓";
+
+    position:absolute;
+
+    top:30px;
+
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:18px;
+}
+
+
+/* =====================================================
+   CANDLE
+===================================================== */
+
+.candle{
+
+    position:absolute;
+
+    width:25px;
+
+    height:80px;
+
+    left:50%;
+
+    top:-30px;
+
+    transform:translateX(-50%);
+
+    border-radius:8px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #ffffff 0px,
+            #ffffff 9px,
+            #f3a1bb 9px,
+            #f3a1bb 18px
+        );
+
+    z-index:7;
+
+    box-shadow:
+        0 3px 5px rgba(0,0,0,.15);
+}
+
+
+/* =====================================================
+   FLAME
+===================================================== */
+
+.flame{
+
+    position:absolute;
+
+    width:30px;
+
+    height:43px;
+
+    left:50%;
+
+    top:-77px;
+
+    transform:
+        translateX(-50%)
+        rotate(-45deg);
+
+    background:#ffd34e;
+
+    border-radius:
+        50% 50% 50% 0;
+
+    box-shadow:
+        0 0 15px #ffd34e,
+        0 0 35px rgba(255,190,50,.7);
+
+    transform-origin:bottom center;
+
+    z-index:10;
+
+    animation:flameMove .45s infinite alternate;
+}
+
+@keyframes flameMove{
+
+    from{
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            scale(.9);
+    }
+
+    to{
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            scale(1.1);
+    }
+
+}
+
+
+/* Flame blows out */
+
+.flame.off{
+
+    animation:blowOut .55s forwards;
+}
+
+@keyframes blowOut{
+
+    0%{
+        opacity:1;
+
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            scale(1);
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            translateY(-25px)
+            scale(.15);
+    }
+
+}
+
+
+/* =====================================================
+   SMOKE
+===================================================== */
+
+.smoke{
+
+    position:absolute;
+
+    left:50%;
+
+    top:-90px;
+
+    transform:translateX(-50%);
+
+    font-size:35px;
+
+    opacity:0;
+
+    z-index:12;
+}
+
+.smoke.show{
+
+    animation:
+        smokeRise 2s ease forwards;
+}
+
+@keyframes smokeRise{
+
+    0%{
+        opacity:0;
+
+        transform:
+            translate(-50%,0)
+            scale(.5);
+    }
+
+    30%{
+        opacity:.7;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(-50%,-80px)
+            scale(1.5);
+    }
+
+}
+
+
+/* =====================================================
+   WISH MESSAGE
+===================================================== */
+
+.wish-text{
+
+    color:#ff9ec2;
+
+    font-size:19px;
+
+    font-weight:600;
+
+    opacity:0;
+
+    margin-top:15px;
+
+    transition:.6s;
+}
+
+.wish-text.show{
+    opacity:1;
+}
+
+
+/* =====================================================
+   LETTER
+===================================================== */
+
+textarea{
+
+    height:330px;
+
+    resize:none;
+
+    line-height:1.65;
+}
+
+.counter{
+
+    text-align:right;
+
+    color:#aaa;
+
+    margin-top:8px;
+}
+
+
+/* =====================================================
+   LITTLE FRIEND
+===================================================== */
+
+.choice-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.choice{
+
+    background:white;
+
+    border:1.5px solid #ead7dc;
+
+    border-radius:25px;
+
+    padding:18px 8px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.choice:hover{
+    transform:translateY(-5px);
+}
+
+.choice.selected{
+
+    border:2px solid #c74e8a;
+
+    background:#fff5f9;
+
+    box-shadow:
+        0 12px 25px rgba(200,70,140,.18);
+}
+
+.choice-icon{
+
+    font-size:55px;
+
+    margin-bottom:10px;
+}
+
+.choice-name{
+
+    font-size:17px;
+
+    color:#70515e;
+}
+
+
+/* =====================================================
+   VIBE
+===================================================== */
+
+.vibe{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:24px;
+
+    border:1.5px solid #ead7dc;
+
+    border-radius:25px;
+
+    margin-bottom:18px;
+
+    font-size:19px;
+
+    color:#755662;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.vibe.selected{
+
+    border:2px solid #c74e8a;
+
+    background:#fff5f9;
+
+    box-shadow:
+        0 12px 25px rgba(200,70,140,.15);
+}
+
+.vibe-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    font-size:30px;
+}
+
+
+/* =====================================================
+   FINAL CARD
+===================================================== */
+
+.final-card{
+
+    text-align:center;
+
+    padding:45px 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff2f7
+        );
+
+    border-radius:45px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+.final-friend{
+
+    font-size:120px;
+
+    animation:
+        friendBounce 2s infinite;
+}
+
+@keyframes friendBounce{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+}
+
+.birthday-title{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:43px;
+
+    color:#d34f8c;
+
+    margin:15px 0;
+}
+
+.friend-name{
+
+    color:#25182f;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+}
+
+.vibe-result{
+
+    color:#bd4b7d;
+
+    font-weight:700;
+
+    margin-top:25px;
+}
+
+.final-letter{
+
+    white-space:pre-line;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    color:#6b5661;
+
+    margin-top:25px;
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+.confetti{
+
+    position:fixed;
+
+    top:-30px;
+
+    font-size:25px;
+
+    z-index:100;
+
+    pointer-events:none;
+
+    animation:
+        fall 4s linear forwards;
+}
+
+@keyframes fall{
+
+    to{
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity:0;
+    }
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    color:#817a88;
+
+    font-size:14px;
+
+    margin-top:45px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:600px){
+
+    .app{
+        padding:20px 18px 80px;
+    }
+
+    .card{
+        padding:30px 20px;
+        border-radius:35px;
+    }
+
+    .custom-row{
+
+        grid-template-columns:
+            70px 1fr 82px;
+
+        gap:10px;
+    }
+
+    .custom-name{
+        font-size:16px;
+    }
+
+    .custom-value{
+        font-size:14px;
+    }
+
+    .change{
+        font-size:13px;
+    }
+
+    .choice-grid{
+        gap:8px;
+    }
+
+    .choice{
+        padding:15px 5px;
+    }
+
+    .choice-icon{
+        font-size:43px;
+    }
+
+    .choice-name{
+        font-size:14px;
+    }
+
+    .cake-container{
+        transform:scale(.9);
+    }
+
+    .cake-container:active{
+        transform:scale(.85);
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     STARS
+===================================================== -->
+
+<div class="stars" id="stars"></div>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SCREEN 1
+===================================================== -->
+
+<section class="screen active" id="screen1">
+
+    <h1 class="main-title">
+
+        🎂<br>
+
+        Create a Birthday<br>
+
+        Surprise!
+
+    </h1>
+
+
+    <div class="card">
+
+        <div class="question">
+            Whose birthday is it?
+        </div>
+
+
+        <input
+            id="friendName"
+            type="text"
+            placeholder="Enter their name..."
+        >
+
+
+        <br><br>
+
+
+        <div class="question">
+            When is the special day? 🎂
+        </div>
+
+
+        <div class="date-row">
+
+            <select id="month">
+
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+
+            </select>
+
+
+            <select id="day"></select>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="goToCustomize()"
+    >
+        Next
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 2
+===================================================== -->
+
+<section class="screen" id="screen2">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(1)"
+    >
+        ‹
+    </button>
+
+
+    <div class="card">
+
+        <h1 class="main-title">
+
+            Customize for
+            <span id="name2"></span>
+
+        </h1>
+
+
+        <p style="
+            text-align:center;
+            color:#9b858e;
+            font-size:17px;
+            margin-bottom:15px;
+        ">
+            Tap change to pick your own
+        </p>
+
+
+        <!-- Cake -->
+
+        <div class="custom-row">
+
+            <div class="custom-name">
+                Cake
+            </div>
+
+            <div
+                class="custom-value"
+                id="cakeValue"
+            >
+                🎂 Chocolate Fantasy
+            </div>
+
+            <button
+                class="change"
+                onclick="changeCake()"
+            >
+                Change
+            </button>
+
+        </div>
+
+
+        <!-- Bond -->
+
+        <div class="custom-row">
+
+            <div class="custom-name">
+                Bond
+            </div>
+
+            <div
+                class="custom-value"
+                id="bondValue"
+            >
+                💗 Best Friend
+            </div>
+
+            <button
+                class="change"
+                onclick="changeBond()"
+            >
+                Change
+            </button>
+
+        </div>
+
+
+        <!-- Vibe -->
+
+        <div class="custom-row">
+
+            <div class="custom-name">
+                Vibe
+            </div>
+
+            <div class="custom-value">
+
+                <span id="vibeIcon">
+                    🎀
+                </span>
+
+                <span id="vibeValue">
+                    Sweet & Warm
+                </span>
+
+            </div>
+
+            <button
+                class="change"
+                onclick="nextScreen(6)"
+            >
+                Change
+            </button>
+
+        </div>
+
+
+        <!-- Friend -->
+
+        <div class="custom-row">
+
+            <div class="custom-name">
+                Friend
+            </div>
+
+            <div class="custom-value">
+
+                <span id="friendIcon">
+                    🧸
+                </span>
+
+                <span id="friendValue">
+                    Teddy
+                </span>
+
+            </div>
+
+            <button
+                class="change"
+                onclick="nextScreen(5)"
+            >
+                Change
+            </button>
+
+        </div>
+
+
+        <!-- Letter -->
+
+        <div class="custom-row">
+
+            <div class="custom-name">
+                Letter
+            </div>
+
+            <div class="custom-value">
+
+                💌 Dear
+                <span id="letterName"></span>,
+
+            </div>
+
+            <button
+                class="change"
+                onclick="nextScreen(4)"
+            >
+                Change
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="nextScreen(3)"
+    >
+        Continue 🎂
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 3
+     BLOW THE CANDLE
+===================================================== -->
+
+<section class="screen" id="screen3">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(2)"
+    >
+        ‹
+    </button>
+
+
+    <div class="cake-screen">
+
+
+        <h1 class="cake-title">
+
+            Make a wish,
+            <span id="cakeName">
+                Friend
+            </span>
+            🎂
+
+        </h1>
+
+
+        <p class="cake-subtitle">
+
+            Touch the cake to blow out the candle 🕯️
+
+        </p>
+
+
+        <!-- CLICKABLE CAKE -->
+
+        <div
+            class="cake-container"
+            onclick="blowCandle()"
+        >
+
+
+            <div class="cake">
+
+
+                <!-- Flame -->
+
+                <div
+                    class="flame"
+                    id="flame"
+                ></div>
+
+
+                <!-- Smoke -->
+
+                <div
+                    class="smoke"
+                    id="smoke"
+                >
+                    ☁️
+                </div>
+
+
+                <!-- Candle -->
+
+                <div class="candle"></div>
+
+
+                <!-- Cream -->
+
+                <div class="cream"></div>
+
+
+                <!-- Cake top -->
+
+                <div class="cake-top"></div>
+
+
+                <!-- Cake body -->
+
+                <div class="cake-body"></div>
+
+
+            </div>
+
+        </div>
+
+
+        <p
+            class="wish-text"
+            id="wishText"
+        >
+            ✨ Wish made! Happy Birthday! ✨
+        </p>
+
+
+        <button
+            class="next-btn"
+            id="candleNext"
+            style="display:none;"
+            onclick="nextScreen(4)"
+        >
+            Continue 💗
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 4
+     LETTER
+===================================================== -->
+
+<section class="screen" id="screen4">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(2)"
+    >
+        ‹
+    </button>
+
+
+    <div class="card">
+
+        <h1 class="main-title">
+
+            Edit your letter 💌
+
+        </h1>
+
+
+        <textarea id="letter">
+
+Dear Friend,
+
+Happy Birthday to someone truly special! 🎂
+
+You are such a wonderful person and I'm really grateful to have you in my life.
+
+Thank you for all the laughs, memories, silly moments and beautiful moments we've shared.
+
+I hope this birthday brings you everything you've been wishing for.
+
+May this new year of your life be filled with happiness, success, adventures and countless reasons to smile.
+
+Stay exactly the amazing person you are. 💗
+
+Happy Birthday once again! 🎉
+
+        </textarea>
+
+
+        <p class="counter">
+
+            <span id="counter">
+                0
+            </span>
+            / 800 characters
+
+        </p>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="saveLetter()"
+    >
+        Done
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 5
+     LITTLE FRIEND
+===================================================== -->
+
+<section class="screen" id="screen5">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(2)"
+    >
+        ‹
+    </button>
+
+
+    <div class="card">
+
+        <h1 class="main-title">
+
+            Choose a little friend
+
+        </h1>
+
+
+        <div class="choice-grid">
+
+
+            <div
+                class="choice"
+                onclick="
+                    selectFriend(this,'Bunny','🐰')
+                "
+            >
+
+                <div class="choice-icon">
+                    🐰
+                </div>
+
+                <div class="choice-name">
+                    Bunny
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="choice"
+                onclick="
+                    selectFriend(this,'Kitty','🐱')
+                "
+            >
+
+                <div class="choice-icon">
+                    🐱
+                </div>
+
+                <div class="choice-name">
+                    Kitty
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="choice selected"
+                onclick="
+                    selectFriend(this,'Teddy','🧸')
+                "
+            >
+
+                <div class="choice-icon">
+                    🧸
+                </div>
+
+                <div class="choice-name">
+                    Teddy
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="nextScreen(2)"
+    >
+        Done
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 6
+     VIBE
+===================================================== -->
+
+<section class="screen" id="screen6">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(2)"
+    >
+        ‹
+    </button>
+
+
+    <div class="card">
+
+        <h1 class="main-title">
+
+            Pick the vibe ✨
+
+        </h1>
+
+
+        <div
+            class="vibe"
+            onclick="
+                selectVibe(
+                    this,
+                    'Sweet & Warm',
+                    '🎀'
+                )
+            "
+        >
+
+            <div class="vibe-icon">
+                🎀
+            </div>
+
+            Sweet & Warm
+
+        </div>
+
+
+
+        <div
+            class="vibe"
+            onclick="
+                selectVibe(
+                    this,
+                    'Fun & Playful',
+                    '😂'
+                )
+            "
+        >
+
+            <div class="vibe-icon">
+                😂
+            </div>
+
+            Fun & Playful
+
+        </div>
+
+
+
+        <div
+            class="vibe"
+            onclick="
+                selectVibe(
+                    this,
+                    'Deep Friendship',
+                    '💗'
+                )
+            "
+        >
+
+            <div class="vibe-icon">
+                💗
+            </div>
+
+            Deep Friendship
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="nextScreen(2)"
+    >
+        Done
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCREEN 7
+     FINAL PREVIEW
+===================================================== -->
+
+<section class="screen" id="screen7">
+
+
+    <button
+        class="back"
+        onclick="nextScreen(2)"
+    >
+        ‹
+    </button>
+
+
+    <div class="final-card">
+
+
+        <div
+            class="final-friend"
+            id="finalFriend"
+        >
+            🧸
+        </div>
+
+
+        <div class="birthday-title">
+
+            Happy Birthday!
+
+        </div>
+
+
+        <div
+            class="friend-name"
+            id="finalName"
+        >
+            Friend
+        </div>
+
+
+        <div style="
+            font-size:40px;
+        ">
+            🎂 🎈 ✨
+        </div>
+
+
+        <div
+            class="vibe-result"
+            id="finalVibe"
+        >
+            🎀 Sweet & Warm
+        </div>
+
+
+        <div
+            class="final-letter"
+            id="finalLetter"
+        >
+        </div>
+
+
+        <div style="
+            margin-top:30px;
+            font-size:30px;
+        ">
+            💗 🧸 💗
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        onclick="celebrate()"
+    >
+        🎉 Make a Wish 🎉
+    </button>
+
+</section>
+
+
+<div class="footer">
+
+    Made with 💗 especially for someone special
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CREATE STARS
+===================================================== */
+
+const starContainer =
+    document.getElementById("stars");
+
+for(let i=0;i<100;i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className="star";
+
+    star.style.left =
+        Math.random()*100+"%";
+
+    star.style.top =
+        Math.random()*100+"%";
+
+    star.style.animationDelay =
+        Math.random()*4+"s";
+
+    starContainer.appendChild(star);
+}
+
+
+/* =====================================================
+   CREATE DAYS
+===================================================== */
+
+const daySelect =
+    document.getElementById("day");
+
+for(let i=1;i<=31;i++){
+
+    const option =
+        document.createElement("option");
+
+    option.value=i;
+
+    option.textContent=i;
+
+    daySelect.appendChild(option);
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let friendName="Friend";
+
+let selectedFriend="Teddy";
+
+let selectedFriendIcon="🧸";
+
+let selectedVibe="Sweet & Warm";
+
+let selectedVibeIcon="🎀";
+
+let candleBlown=false;
+
+
+/* =====================================================
+   SCREEN NAVIGATION
+===================================================== */
+
+function nextScreen(number){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
+
+
+    const target =
+        document.getElementById(
+            "screen"+number
+        );
+
+    if(target){
+        target.classList.add("active");
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    /* Customize screen */
+
+    if(number===2){
+
+        document.getElementById("name2")
+            .textContent=friendName;
+
+        document.getElementById("letterName")
+            .textContent=friendName;
+
+    }
+
+
+    /* Candle screen */
+
+    if(number===3){
+
+        document.getElementById("cakeName")
+            .textContent=friendName;
+
+        resetCandle();
+
+    }
+
+
+    /* Final screen */
+
+    if(number===7){
+
+        document.getElementById("finalName")
+            .textContent=friendName;
+
+        document.getElementById("finalFriend")
+            .textContent=selectedFriendIcon;
+
+        document.getElementById("finalVibe")
+            .textContent=
+                selectedVibeIcon+
+                " "+
+                selectedVibe;
+
+        document.getElementById("finalLetter")
+            .textContent=
+                document.getElementById("letter")
+                .value.trim();
+
+    }
+
+}
+
+
+/* =====================================================
+   FIRST SCREEN
+===================================================== */
+
+function goToCustomize(){
+
+    const input =
+        document.getElementById("friendName");
+
+    friendName =
+        input.value.trim();
+
+
+    if(friendName===""){
+
+        friendName="Friend";
+
+        input.value="Friend";
+
+    }
+
+
+    nextScreen(2);
+
+}
+
+
+/* =====================================================
+   CANDLE RESET
+===================================================== */
+
+function resetCandle(){
+
+    candleBlown=false;
+
+    const flame =
+        document.getElementById("flame");
+
+    const smoke =
+        document.getElementById("smoke");
+
+    const wish =
+        document.getElementById("wishText");
+
+    const next =
+        document.getElementById("candleNext");
+
+
+    flame.classList.remove("off");
+
+    smoke.classList.remove("show");
+
+    wish.classList.remove("show");
+
+    next.style.display="none";
+
+}
+
+
+/* =====================================================
+   BLOW CANDLE
+===================================================== */
+
+function blowCandle(){
+
+    if(candleBlown){
+        return;
+    }
+
+    candleBlown=true;
+
+
+    const flame =
+        document.getElementById("flame");
+
+    const smoke =
+        document.getElementById("smoke");
+
+    const wish =
+        document.getElementById("wishText");
+
+    const next =
+        document.getElementById("candleNext");
+
+
+    /* Blow flame */
+
+    flame.classList.add("off");
+
+
+    /* Smoke */
+
+    setTimeout(()=>{
+
+        smoke.classList.add("show");
+
+    },250);
+
+
+    /* Wish */
+
+    setTimeout(()=>{
+
+        wish.classList.add("show");
+
+    },650);
+
+
+    /* Button */
+
+    setTimeout(()=>{
+
+        next.style.display="block";
+
+    },1100);
+
+
+    /* Small celebration */
+
+    createMiniConfetti();
+
+}
+
+
+/* =====================================================
+   MINI CONFETTI
+===================================================== */
+
+function createMiniConfetti(){
+
+    const emojis=[
+        "✨",
+        "💗",
+        "🎉",
+        "💕",
+        "⭐",
+        "🎈"
+    ];
+
+
+    for(let i=0;i<25;i++){
+
+        const item =
+            document.createElement("div");
+
+        item.className="confetti";
+
+        item.textContent =
+            emojis[
+                Math.floor(
+                    Math.random()*emojis.length
+                )
+            ];
+
+
+        item.style.left =
+            Math.random()*100+"vw";
+
+
+        item.style.animationDuration =
+            (Math.random()*2+2)+"s";
+
+
+        document.body.appendChild(item);
+
+
+        setTimeout(()=>{
+
+            item.remove();
+
+        },4500);
+
+    }
+
+}
+
+
+/* =====================================================
+   LETTER COUNTER
+===================================================== */
+
+const letter =
+    document.getElementById("letter");
+
+function updateCounter(){
+
+    document.getElementById("counter")
+        .textContent=
+        letter.value.length;
+
+}
+
+letter.addEventListener(
+    "input",
+    updateCounter
+);
+
+updateCounter();
+
+
+function saveLetter(){
+
+    nextScreen(2);
+
+}
+
+
+/* =====================================================
+   FRIEND SELECTION
+===================================================== */
+
+function selectFriend(
+    element,
+    name,
+    icon
+){
+
+    document
+        .querySelectorAll(".choice")
+        .forEach(choice=>{
+            choice.classList.remove("selected");
+        });
+
+
+    element.classList.add("selected");
+
+
+    selectedFriend=name;
+
+    selectedFriendIcon=icon;
+
+
+    document.getElementById("friendValue")
+        .textContent=name;
+
+    document.getElementById("friendIcon")
+        .textContent=icon;
+
+}
+
+
+/* =====================================================
+   VIBE SELECTION
+===================================================== */
+
+function selectVibe(
+    element,
+    name,
+    icon
+){
+
+    document
+        .querySelectorAll(".vibe")
+        .forEach(v=>{
+            v.classList.remove("selected");
+        });
+
+
+    element.classList.add("selected");
+
+
+    selectedVibe=name;
+
+    selectedVibeIcon=icon;
+
+
+    document.getElementById("vibeValue")
+        .textContent=name;
+
+    document.getElementById("vibeIcon")
+        .textContent=icon;
+
+}
+
+
+/* =====================================================
+   CAKE CHANGE
+===================================================== */
+
+const cakes=[
+    "🎂 Chocolate Fantasy",
+    "🍓 Strawberry Dream",
+    "🍰 Vanilla Cloud",
+    "🌈 Rainbow Cake"
+];
+
+let cakeIndex=0;
+
+function changeCake(){
+
+    cakeIndex++;
+
+    if(cakeIndex>=cakes.length){
+        cakeIndex=0;
+    }
+
+    document.getElementById("cakeValue")
+        .textContent=cakes[cakeIndex];
+
+}
+
+
+/* =====================================================
+   BOND CHANGE
+===================================================== */
+
+const bonds=[
+    "💗 Best Friend",
+    "✨ Forever Friend",
+    "🧸 Favorite Human",
+    "🌸 Special Friend"
+];
+
+let bondIndex=0;
+
+function changeBond(){
+
+    bondIndex++;
+
+    if(bondIndex>=bonds.length){
+        bondIndex=0;
+    }
+
+    document.getElementById("bondValue")
+        .textContent=bonds[bondIndex];
+
+}
+
+
+/* =====================================================
+   FINAL CELEBRATION
+===================================================== */
+
+function celebrate(){
+
+    const emojis=[
+        "🎉",
+        "🎈",
+        "💗",
+        "✨",
+        "🎂",
+        "🧸",
+        "💕",
+        "⭐"
+    ];
+
+
+    for(let i=0;i<100;i++){
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className="confetti";
+
+        confetti.textContent =
+            emojis[
+                Math.floor(
+                    Math.random()*emojis.length
+                )
+            ];
+
+
+        confetti.style.left =
+            Math.random()*100+"vw";
+
+
+        confetti.style.animationDuration =
+            (Math.random()*2+2)+"s";
+
+
+        document.body.appendChild(confetti);
+
+
+        setTimeout(()=>{
+
+            confetti.remove();
+
+        },4500);
+
+    }
+
+
+    setTimeout(()=>{
+
+        alert(
+            "🎂 Happy Birthday, "+
+            friendName+
+            "! 💗\n\n"+
+            "May this year be your happiest one yet! ✨"
+        );
+
+    },500);
+
+}
+
+</script>
+
+</body>
+</html>
